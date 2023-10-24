@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora de Finanças</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <h1><i class="money-icon fa fa-money"></i> Calculadora de Finanças</h1>
+
+    <div class="container">
+        <div class="bank-section">
+            <h2>Nubank</h2>
+            <div class="input-container">
+                <input type="number" id="nubankInput" placeholder="Valor Nubank">
+                <input type="text" id="nubankComment" placeholder="Comentário Nubank">
+            </div>
+        </div>
+
+        <div class="bank-section">
+            <h2>C6</h2>
+            <div class="input-container">
+                <input type="number" id="c6Input" placeholder="Valor C6">
+                <input type="text" id="c6Comment" placeholder="Comentário C6">
+            </div>
+        </div>
+
+        <div class="bank-section">
+            <h2>Banco do Brasil</h2>
+            <div class "input-container">
+                <input type="number" id="bbInput" placeholder="Valor Banco do Brasil">
+                <input type="text" id="bbComment" placeholder="Comentário Banco do Brasil">
+            </div>
+        </div>
+
+        <div class="bank-section">
+            <h2>Contas do Dia-a-dia</h2>
+            <div class="input-container">
+                <input type="number" id="dailyExpenses" placeholder="Valor Contas do Dia-a-dia">
+                <input type="text" id="dailyExpensesComment" placeholder="Comentário Contas do Dia-a-dia">
+            </div>
+        </div>
+    </div>
+
+    <button onclick="adicionarValor()">Enviar</button>
+    <button onclick="renovarInformacoes()">Renovar Informações</button>
+    <button onclick="exportarValores()">Exportar</button>
+    <button onclick="atualizarPagina()">Atualizar</button>
+    <p>Total da dívida: <span id="totalDevido">0.00</span></p>
+    <h2>Valores Enviados:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Comentário</th>
+            </tr>
+        </thead>
+        <tbody id="valoresEnviados"></tbody>
+    </table>
+
+    <script src="./script.js"></script>
+</body>
+</html>

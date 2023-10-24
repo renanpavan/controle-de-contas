@@ -97,11 +97,15 @@ function renovarInformacoes() {
 }
 
 function exportarValores() {
+    const total = valoresEnviados.reduce((acumulador, valor) => acumulador + valor.valor, 0).toFixed(2);
+
     const exportData = valoresEnviados.map((valor) => {
         return `${valor.tipo}: ${valor.valor.toFixed(2)} - ${valor.comentario || ""}`;
     }).join("\n");
 
-    const blob = new Blob([exportData], { type: "text/plain" });
+    const exportDataWithTotal = exportData + `\nTotal da dívida: ${total}`;
+
+    const blob = new Blob([exportDataWithTotal], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -109,3 +113,43 @@ function exportarValores() {
     a.click();
     URL.revokeObjectURL(url);
 }
+
+function carregarValoresSalvos() {
+    const totalDevidoElement = document.getElementById("totalDevido");
+    const valoresEnviadosTable = document.getElementById("valoresEnviados");
+
+    if (valoresEnviados.length > 0) {
+        const tableBody = document.createElement("tbody");
+
+        let totalDevido = 0;
+
+        for (const valor of valoresEnviados) {
+            totalDevido += valor.valor;
+
+            const row = document.createElement("tr");
+            const tipoCell = document.createElement("td");
+            tipoCell.textContent = valor.tipo;
+            tipoCell.classList.add("valor-tipo");
+            const valorCell = document.createElement("td");
+            valorCell.textContent = valor.valor.toFixed(2);
+            valorCell.classList.add("valor-valor");
+            const comentarioCell = document.createElement("td");
+            comentarioCell.textContent = valor.comentario || "-";
+            comentarioCell.classList.add("valor-comentario");
+
+            row.appendChild(tipoCell);
+            row.appendChild(valorCell);
+            row.appendChild(comentarioCell);
+            tableBody.appendChild(row);
+        }
+
+        // Limpa a tabela antes de adicionar os novos valores
+        while (valoresEnviadosTable.firstChild) {
+            valoresEnviadosTable.removeChild(valoresEnviadosTable.firstChild);
+        }
+
+        valoresEnviadosTable.appendChild(tableBody);
+    }
+}
+
+carregarValoresSalvos();

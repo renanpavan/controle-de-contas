@@ -61,10 +61,13 @@ function atualizarValoresEnviados() {
         const row = document.createElement("tr");
         const tipoCell = document.createElement("td");
         tipoCell.textContent = valor.tipo;
+        tipoCell.classList.add("valor-tipo"); // Adicione a classe CSS
         const valorCell = document.createElement("td");
         valorCell.textContent = valor.valor.toFixed(2);
+        valorCell.classList.add("valor-valor"); // Adicione a classe CSS
         const comentarioCell = document.createElement("td");
         comentarioCell.textContent = valor.comentario || "-";
+        comentarioCell.classList.add("valor-comentario"); // Adicione a classe CSS
 
         row.appendChild(tipoCell);
         row.appendChild(valorCell);
@@ -73,6 +76,7 @@ function atualizarValoresEnviados() {
     }
 
     document.getElementById("totalDevido").textContent = totalDevido.toFixed(2);
+    limparCampos();
 }
 
 function limparCampos() {
@@ -88,6 +92,9 @@ function limparCampos() {
 
 function salvarValoresNoLocalStorage() {
     localStorage.setItem("valoresEnviados", JSON.stringify(valoresEnviados));
+    atualizarValoresEnviados();
+    salvarValoresNoLocalStorage();
+    limparCampos();
 }
 
 function renovarInformacoes() {
@@ -153,3 +160,5 @@ function carregarValoresSalvos() {
 }
 
 carregarValoresSalvos();
+
+document.addEventListener("DOMContentLoaded", adicionarValor);
